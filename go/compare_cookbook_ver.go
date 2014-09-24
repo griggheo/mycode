@@ -93,7 +93,7 @@ func getCookbookVersionInLocalMetadata(cookbook *string, verbose bool) string {
 
 func getGitDiff(cookbook *string) ([]byte, error) {
         filename := fmt.Sprintf("/Users/grig.gheorghiu/chef-repo/cookbooks/%s/metadata.rb", *cookbook)
-	fmt.Println("\nGetting git diff for ", filename)
+	fmt.Println("\nGetting git diff for", filename)
 	cmd := exec.Command("git", "diff", "--exit-code", filename)
 	combined_output, err := cmd.CombinedOutput()
 	return combined_output, err
@@ -102,7 +102,7 @@ func getGitDiff(cookbook *string) ([]byte, error) {
 func main() {
 	cookbook := flag.String("cookbook", "", "the cookbook we are inspecting")
 	flag.Parse()
-	envs := []string {"prod", "stg", "qa1"}
+	envs := []string {"prod", "stg", "qa1", "qa2", "qa3"}
 	for _, env := range envs {
 		getCookbookVersionInEnvironment(cookbook, env, true)
 		// version := getCookbookVersionInEnvironment(cookbook, env, true)
@@ -115,6 +115,6 @@ func main() {
 	if err != nil {
 		fmt.Println(fmt.Sprint(err) + ": " + string(output))
 	} else {
-		fmt.Println("Found no difference between GitHub and local version.rb")
+		fmt.Println("Found no difference between GitHub and local version.")
 	}
 }	
